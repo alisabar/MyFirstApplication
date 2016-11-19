@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/black">
+
+    <TextView
+        android:text="Green"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/txtGreen"
+        android:background="@android:color/holo_green_dark"
+        android:paddingBottom="5dp"
+        android:paddingTop="5dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        app:layout_constraintLeft_toLeftOf="@+id/txtBlue"
+        app:layout_constraintBottom_toTopOf="@+id/txtBlue" />
+
+
+    <TextView
+        android:text="Red"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/txtRed"
+        android:background="@android:color/holo_red_light"
+        android:paddingBottom="5dp"
+        android:paddingTop="5dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        app:layout_constraintLeft_toLeftOf="@+id/Orange"
+        app:layout_constraintBottom_toTopOf="@+id/Orange" />
+
+    <TextView
+        android:text="Blue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/txtBlue"
+        android:background="@android:color/holo_blue_bright"
+        android:paddingBottom="5dp"
+        android:paddingTop="5dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        app:layout_constraintLeft_toLeftOf="@+id/Indigo"
+        app:layout_constraintBottom_toTopOf="@+id/Indigo" />
+
+    <TextView
+        android:text="Violet"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/txtViolet"
+        android:background="@android:color/holo_purple"
+        android:paddingBottom="5dp"
+        android:paddingTop="5dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginRight="16dp"
+        android:layout_marginStart="16dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginLeft="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="152dp" />
+
+    <TextView
+        android:text="Yellow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/Yellow"
+        android:background="@android:color/holo_orange_light"
+        android:paddingBottom="5dp"
+        android:paddingTop="5dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        app:layout_constraintLeft_toLeftOf="@+id/txtGreen"
+        app:layout_constraintBottom_toTopOf="@+id/txtGreen" />
+
+    <TextView
+        android:text="Indigo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/Indigo"
+        android:background="@android:color/holo_blue_dark"
+        android:paddingBottom="5dp"
+        android:paddingTop="5dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        app:layout_constraintLeft_toLeftOf="@+id/txtViolet"
+        app:layout_constraintBottom_toTopOf="@+id/txtViolet" />
+    <TextView
+        android:text="Orange"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/Orange"
+        android:background="@android:color/holo_orange_dark"
+        android:paddingBottom="5dp"
+        android:paddingTop="5dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        app:layout_constraintLeft_toLeftOf="@+id/Yellow"
+        app:layout_constraintBottom_toTopOf="@+id/Yellow" />
+
+</android.support.constraint.ConstraintLayout>

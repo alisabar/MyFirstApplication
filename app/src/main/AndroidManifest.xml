@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.alisa.myfirstapplication">
+
     <uses-sdk android:minSdkVersion="5" />
+
+    <android:uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <android:uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <android:uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -15,7 +21,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".DisplayMessageActivity"></activity>
+        <activity android:name=".CalculatorDisplayMessageActivity" />
+        <activity
+            android:name=".ConstraintLayoutA"
+            android:label="@string/title_activity_constraint_layout"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".CalculatorActivity"></activity>
+        <activity android:name=".ConstraintLayoutB"></activity>
+        <activity android:name=".ConstraintLayoutC"></activity>
+
     </application>
 
 </manifest>
