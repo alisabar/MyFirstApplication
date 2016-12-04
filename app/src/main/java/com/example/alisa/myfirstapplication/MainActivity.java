@@ -24,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
                 new ArrayItem("Lecture 3: ConstraintLayoutA", ConstraintLayoutA.class),
                 new ArrayItem("Lecture 3: ConstraintLayoutB", ConstraintLayoutB.class),
                 new ArrayItem("Lecture 3: ConstraintLayoutC", ConstraintLayoutC.class),
+                new ArrayItem("Lecture 4: Birthday", BirthdayActivity.class),
         };
 
         // add the data to an adapter
@@ -64,6 +65,11 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
     public void OpenConstraintC(View view)
+    {
+        Intent intent = new Intent(this, BirthdayActivity.class);
+        startActivity(intent);
+    }
+    public void OpenBirthday(View view)
     {
         Intent intent = new Intent(this, ConstraintLayoutC.class);
         startActivity(intent);

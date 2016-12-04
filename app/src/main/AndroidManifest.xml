@@ -26,10 +26,10 @@
             android:name=".ConstraintLayoutA"
             android:label="@string/title_activity_constraint_layout"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".CalculatorActivity"></activity>
-        <activity android:name=".ConstraintLayoutB"></activity>
-        <activity android:name=".ConstraintLayoutC"></activity>
-
+        <activity android:name=".CalculatorActivity" />
+        <activity android:name=".ConstraintLayoutB" />
+        <activity android:name=".ConstraintLayoutC" />
+        <activity android:name=".BirthdayActivity"></activity>
     </application>
 
 </manifest>
