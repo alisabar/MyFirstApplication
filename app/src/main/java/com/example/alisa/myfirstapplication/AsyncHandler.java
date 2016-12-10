@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package sharedutils;
+package com.example.alisa.myfirstapplication;
 
 import android.os.Handler;
 import android.os.HandlerThread;

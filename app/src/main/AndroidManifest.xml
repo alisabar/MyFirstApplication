@@ -29,7 +29,8 @@
         <activity android:name=".CalculatorActivity" />
         <activity android:name=".ConstraintLayoutB" />
         <activity android:name=".ConstraintLayoutC" />
-        <activity android:name=".BirthdayActivity"></activity>
+        <activity android:name=".BirthdayActivity" />
+        <activity android:name=".ActivitySetFields"></activity>
     </application>
 
 </manifest>

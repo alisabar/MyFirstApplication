@@ -3,6 +3,8 @@ package com.example.alisa.myfirstapplication;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.transition.Transition;
+import android.transition.TransitionInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -43,7 +45,17 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(getBaseContext(), "Activity is not attached", Toast.LENGTH_LONG).show();
                 } else {
                     Intent intent = new Intent(getBaseContext(), clicked.activity);
+                    /*
+                    Transition mFadeTransition =
+                            TransitionInflater.from(MainActivity.this).
+                                    inflateTransition(R.transition.transition1);
+                    */
                     startActivity(intent);
+                    overridePendingTransition(R.anim.card_flip_left_in,R.anim.card_flip_left_out);
+                    //MainActivity.this.finish();
+
+
+                  //  overridePendingTransition(R.anim.card_flip_left_in,R.anim.card_flip_left_out);
                 }
             }
         });

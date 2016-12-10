@@ -8,10 +8,12 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.support.annotation.WorkerThread;
 import android.util.Log;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by Alisa on 11/29/2016.
@@ -27,9 +29,15 @@ public class DataBase extends SQLiteOpenHelper {
     // create table favcol (_id int primary key, username string, fav_color string) ;
     private static final String SQL_CREATE_ENTRIES = "CREATE TABLE " + BirthdayTable.TABLE_NAME +
             " (" + BirthdayTable.COLUMN_NAME + TEXT_TYPE + " PRIMARY KEY," +
-            BirthdayTable.COLUMN_BIRTHDATE + TEXT_TYPE +COMMA_SEP+
-            BirthdayTable.COLUMN_NEXTBIRTHDAY+ " INTEGER" + COMMA_SEP+
-    BirthdayTable.COLUMN_COMMENT+ TEXT_TYPE+")";
+            BirthdayTable.COLUMN_BIRTHDATE + TEXT_TYPE + COMMA_SEP +
+            BirthdayTable.COLUMN_NEXTBIRTHDAY + " INTEGER" + COMMA_SEP +
+            BirthdayTable.COLUMN_COMMENT + TEXT_TYPE + ")";
+
+    private static final String SQL_SELECT_ENTRIES = "SELECT " +
+            BirthdayTable.COLUMN_NAME + COMMA_SEP+
+            BirthdayTable.COLUMN_BIRTHDATE  + COMMA_SEP +
+            BirthdayTable.COLUMN_NEXTBIRTHDAY +  COMMA_SEP +
+            BirthdayTable.COLUMN_COMMENT + " FROM "+BirthdayTable.TABLE_NAME;
 
     public static final String DATABASE_NAME = "my.db";
     // If you change the database schema, you must increment the database version.
@@ -44,7 +52,12 @@ public class DataBase extends SQLiteOpenHelper {
 
         }
         db.execSQL(SQL_CREATE_ENTRIES);
-        //addRow("Alisa","");
+        try {
+            addRow(db,"Alisa",new SimpleDateFormat("yyyymmdd").parse("19910122"),"ring");
+            addRow(db,"Alex",new SimpleDateFormat("yyyymmdd").parse("19820312"),"ring");
+        } catch (ParseException e) {
+            Log.e(TAG,"error in onCreate "+e.getMessage(),e);
+        }
     }
 
 
@@ -90,16 +103,29 @@ public class DataBase extends SQLiteOpenHelper {
         onCreate(db);
 
     }
-//yyyy-MM-dd
+
+    //yyyy-MM-dd
     //
-    public void addRow(String nameString, Date date,String comment) {
+    public void addRow(String nameString, Date date, String comment) {
         ContentValues cv = new ContentValues();
         cv.put(BirthdayTable.COLUMN_NAME, nameString);
-        cv.put(BirthdayTable.COLUMN_BIRTHDATE,new SimpleDateFormat("yyyy-MM-dd").format(date));
-        cv.put(BirthdayTable.COLUMN_NEXTBIRTHDAY, new SimpleDateFormat("yyyy-MM-dd").format(getNextBirthday(date)));
+        cv.put(BirthdayTable.COLUMN_BIRTHDATE, new SimpleDateFormat(DATE_FORMAT).format(date));
+        cv.put(BirthdayTable.COLUMN_NEXTBIRTHDAY, new SimpleDateFormat(DATE_FORMAT).format(getNextBirthday(date)));
         cv.put(BirthdayTable.COLUMN_COMMENT, comment);
         // I don't need the newKey, but I just demonstrate that you can get it if you want
         long newKey = getWritableDatabase().insertWithOnConflict(BirthdayTable.TABLE_NAME, null,
+                cv, SQLiteDatabase.CONFLICT_REPLACE);
+    }
+    final String DATE_FORMAT="yyyy-MM-dd";
+
+    public void addRow(SQLiteDatabase db,String nameString, Date date, String comment) {
+        ContentValues cv = new ContentValues();
+        cv.put(BirthdayTable.COLUMN_NAME, nameString);
+        cv.put(BirthdayTable.COLUMN_BIRTHDATE, new SimpleDateFormat(DATE_FORMAT).format(date));
+        cv.put(BirthdayTable.COLUMN_NEXTBIRTHDAY, new SimpleDateFormat(DATE_FORMAT).format(getNextBirthday(date)));
+        cv.put(BirthdayTable.COLUMN_COMMENT, comment);
+        // I don't need the newKey, but I just demonstrate that you can get it if you want
+        long newKey = db.insertWithOnConflict(BirthdayTable.TABLE_NAME, null,
                 cv, SQLiteDatabase.CONFLICT_REPLACE);
     }
 
@@ -108,49 +134,45 @@ public class DataBase extends SQLiteOpenHelper {
         Calendar birthday = Calendar.getInstance();
         birthday.setTime(birthdayDate);
 
-        Calendar currentDate  = Calendar.getInstance();
-        int yearCurrent=currentDate.get(Calendar.YEAR);
-        int monthBirthday=birthday.get(Calendar.MONTH);
-        int monthCurrent=currentDate.get(Calendar.MONTH);
-        int diffMonth=monthBirthday-monthCurrent;
+        Calendar currentDate = Calendar.getInstance();
+        int yearCurrent = currentDate.get(Calendar.YEAR);
+        int monthBirthday = birthday.get(Calendar.MONTH);
+        int monthCurrent = currentDate.get(Calendar.MONTH);
+        int diffMonth = monthBirthday - monthCurrent;
         int theSmallestDiff;
-        boolean ItWiilBeSoon=false;
+        boolean ItWiilBeSoon = false;
 
-      if (diffMonth>0) {
-          theSmallestDiff=diffMonth;
-          ItWiilBeSoon=true;
-      }
-      else if(diffMonth==0) {
-          int dayBirthday = birthday.get(Calendar.DAY_OF_MONTH);
-          int dayCurrent = currentDate.get(Calendar.DAY_OF_MONTH);
-          int diffDay = dayBirthday - dayCurrent;
-          if(diffDay>0)
-              ItWiilBeSoon=true;
-          else if(diffDay==0){
-              ItWiilBeSoon=false;
-          }
-      }
-        else {
-        ItWiilBeSoon=false;
-      }
-
-        if(ItWiilBeSoon)
-        {
-            birthday.set(Calendar.YEAR,yearCurrent);
+        if (diffMonth > 0) {
+            theSmallestDiff = diffMonth;
+            ItWiilBeSoon = true;
+        } else if (diffMonth == 0) {
+            int dayBirthday = birthday.get(Calendar.DAY_OF_MONTH);
+            int dayCurrent = currentDate.get(Calendar.DAY_OF_MONTH);
+            int diffDay = dayBirthday - dayCurrent;
+            if (diffDay > 0)
+                ItWiilBeSoon = true;
+            else if (diffDay == 0) {
+                ItWiilBeSoon = false;
+            }
+        } else {
+            ItWiilBeSoon = false;
         }
-        else
-        {
-            birthday.set(Calendar.YEAR,yearCurrent+1);
+
+        if (ItWiilBeSoon) {
+            birthday.set(Calendar.YEAR, yearCurrent);
+        } else {
+            birthday.set(Calendar.YEAR, yearCurrent + 1);
         }
         return birthday.getTime();
     }
-/*
-    public int whoIsNext(Date users_date)
-    {
-        Date current_date= Calendar.getInstance().getTime();
-        if(users_date.after)
-    }
-    */
+
+    /*
+        public int whoIsNext(Date users_date)
+        {
+            Date current_date= Calendar.getInstance().getTime();
+            if(users_date.after)
+        }
+        */
     public void updateRow(String nameString, String date) {
         ContentValues cv = new ContentValues();
         cv.put(BirthdayTable.COLUMN_NAME, nameString);
@@ -159,6 +181,7 @@ public class DataBase extends SQLiteOpenHelper {
         long newKey = getWritableDatabase().insertWithOnConflict(BirthdayTable.TABLE_NAME, null,
                 cv, SQLiteDatabase.CONFLICT_REPLACE);
     }
+
     public ArrayList<String> whoHasBirthdayAt(String date) {
         // this is the needed sql:
         // select * from favcol where fav_color='blue';
@@ -183,10 +206,11 @@ public class DataBase extends SQLiteOpenHelper {
         c.close(); // << very important to close the Cursor!
         return ret;
     }
+
     @WorkerThread
     public static DataBase getDb(Context context) {
 
-       // Util.assertTrue(Util.getThreadType() != Util.TH_UI, "Must not call this on UI thread!");
+        // Util.assertTrue(Util.getThreadType() != Util.TH_UI, "Must not call this on UI thread!");
 
         if (mInstance == null) {
             synchronized (DATABASE_NAME) {
@@ -200,5 +224,36 @@ public class DataBase extends SQLiteOpenHelper {
             }
         }
         return mInstance;
+    }
+
+    public Birthday[] getBirthdays() {
+
+       List<Birthday> birthdayList= new ArrayList<Birthday>();
+        Birthday[] birthdayArray;
+        int num;
+        SQLiteDatabase db  = this.getReadableDatabase();
+        Cursor cursor      = db.rawQuery(SQL_SELECT_ENTRIES, null);
+        String[] data      = null;
+
+        if (cursor.moveToFirst()) {
+            do {
+                try {
+                    birthdayList.add(new Birthday(cursor.getString(0),
+                                     new SimpleDateFormat(DATE_FORMAT).parse(cursor.getString(1)),
+                                     new SimpleDateFormat(DATE_FORMAT).parse(cursor.getString(2)),
+                                     cursor.getString(3)));
+
+                } catch (ParseException e) {
+                    Log.e(TAG,"error in onCreate "+e.getMessage(),e);
+                }
+            } while (cursor.moveToNext());
+        }
+        int size=birthdayList.size();
+        cursor.close();
+        birthdayArray= new Birthday[size];
+        for (int i = 0; i <size ; i++) {
+            birthdayArray[i]=birthdayList.get(i);
+        }
+        return birthdayArray;
     }
 }

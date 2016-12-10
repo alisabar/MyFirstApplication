@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package sharedutils;
+package com.example.alisa.myfirstapplication;
 
 import android.os.Looper;
 import android.support.annotation.IntDef;
