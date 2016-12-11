@@ -1,10 +1,16 @@
 package com.example.alisa.myfirstapplication;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.transition.Transition;
 import android.transition.TransitionInflater;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -14,6 +20,30 @@ import android.widget.Toast;
 public class MainActivity extends AppCompatActivity {
 
     ListView mainList;
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.SettingsMenuItem:
+                openSettings();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    private void openSettings() {
+        startActivity(new Intent(this,SettingsActivity.class));
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main_menu, menu);
+        return true;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
                                     inflateTransition(R.transition.transition1);
                     */
                     startActivity(intent);
-                    overridePendingTransition(R.anim.card_flip_left_in,R.anim.card_flip_left_out);
+                    setAnim();
                     //MainActivity.this.finish();
 
 
@@ -59,6 +89,22 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    private void setAnim() {
+        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
+        boolean pref_animation_1 = settings.getBoolean("pref_animation_1", true);
+        boolean pref_animation_2= settings.getBoolean("pref_animation_2", false);
+        boolean pref_animation_3 = settings.getBoolean("pref_animation_3", false);
+if(pref_animation_1 ){
+    overridePendingTransition(R.anim.activity_in,R.anim.activity_out);
+}
+else if(pref_animation_2 ){
+            overridePendingTransition(R.anim.activity_in2,R.anim.activity_out2);
+        }
+else if(pref_animation_3 ){
+    overridePendingTransition(R.anim.activity_in3,R.anim.activity_out3);
+}
     }
 
     public void OpenCalculator(View view)

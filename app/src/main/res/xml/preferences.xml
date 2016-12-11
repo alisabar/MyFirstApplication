@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <CheckBoxPreference
+        android:key="pref_animation_1"
+        android:title="Animations1"
+        android:summary="Animation1"
+        android:defaultValue="true" />
+    <CheckBoxPreference
+        android:key="pref_animation_2"
+        android:title="Animations2"
+        android:summary="Animation2"
+        android:defaultValue="false" />
+    <CheckBoxPreference
+        android:key="pref_animation_3"
+        android:title="Animations3"
+        android:summary="Animation3"
+        android:defaultValue="false" />
+</PreferenceScreen>

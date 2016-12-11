@@ -30,7 +30,9 @@
         <activity android:name=".ConstraintLayoutB" />
         <activity android:name=".ConstraintLayoutC" />
         <activity android:name=".BirthdayActivity" />
-        <activity android:name=".ActivitySetFields"></activity>
+        <activity android:name=".ActivitySetFields" />
+        <activity android:name=".PreferenceActivity" />
+        <activity android:name=".SettingsActivity"></activity>
     </application>
 
 </manifest>
