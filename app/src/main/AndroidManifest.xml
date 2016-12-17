@@ -32,7 +32,9 @@
         <activity android:name=".BirthdayActivity" />
         <activity android:name=".ActivitySetFields" />
         <activity android:name=".PreferenceActivity" />
-        <activity android:name=".SettingsActivity"></activity>
+        <activity android:name=".SettingsActivity" />
+        <activity android:name=".MyCustomView" />
+        <activity android:name=".MainActivityForView"></activity>
     </application>
 
 </manifest>

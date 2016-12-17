@@ -57,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
                 new ArrayItem("Lecture 3: ConstraintLayoutB", ConstraintLayoutB.class),
                 new ArrayItem("Lecture 3: ConstraintLayoutC", ConstraintLayoutC.class),
                 new ArrayItem("Lecture 4: Birthday", BirthdayActivity.class),
+                new ArrayItem("Lecture 5: Hello", MainActivityForView.class),
         };
 
         // add the data to an adapter
@@ -130,6 +131,11 @@ else if(pref_animation_3 ){
     public void OpenBirthday(View view)
     {
         Intent intent = new Intent(this, ConstraintLayoutC.class);
+        startActivity(intent);
+    }
+    public void OpenView(View view)
+    {
+        Intent intent = new Intent(this, MainActivityForView.class);
         startActivity(intent);
     }
     static class ArrayItem {
