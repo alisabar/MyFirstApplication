@@ -36,7 +36,8 @@ public class MySecondCustomView extends View {
 
     @Override
     protected void onDraw(Canvas canvas) {
-        canvas.translate(0,100);
+        canvas.scale(getWidth()/320, getHeight()/100);
+        //canvas.translate(0,100);
         canvas.drawLine(0,0,0,100,paint);//H
         canvas.drawLine(0,50,50,50,paint);//H
         canvas.drawLine(50,0,50,100,paint);//H
