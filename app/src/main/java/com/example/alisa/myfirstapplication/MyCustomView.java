@@ -36,7 +36,7 @@ public class MyCustomView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
 
-        canvas.translate(0,100);
+       // canvas.translate(0,100);
         canvas.rotate(-15);
         canvas.scale((getWidth()/320)*0.9f,(getHeight()/100)*0.9f);
         canvas.drawLine(0,0,0,100,paint);//
