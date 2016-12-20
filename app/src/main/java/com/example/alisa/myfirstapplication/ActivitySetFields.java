@@ -35,7 +35,7 @@ public class ActivitySetFields extends AppCompatActivity {
             final Date new_date= calendar.getTime();// new SimpleDateFormat("yyyyMMdd").parse(String.valueOf(date.getYear()+date.getMonth()+date.getDayOfMonth()));
             final String new_name= String.valueOf(name.getText());
             final String new_comment= String.valueOf(comment.getText());
-            UiHandler.post(new Runnable() {
+            AsyncHandler.post(new Runnable() {
                                @Override
                                public void run() {
                                    DataBase.getDb(ActivitySetFields.this).addRow(new_name,new_date,new_comment);
